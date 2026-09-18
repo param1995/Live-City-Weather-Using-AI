@@ -1,0 +1,51 @@
+<main class="chat-shell">
+  <header class="chat-header">
+    <div>
+      <p class="eyebrow">Personal assistant</p>
+      <h1>ChatDPT</h1>
+    </div>
+    <span class="status-dot" aria-label="Ready"></span>
+  </header>
+
+  <section class="messages" aria-live="polite">
+    <div class="welcome" *ngIf="messages.length === 0">
+      <span class="welcome-mark">✦</span>
+      <h2>What can I help you explore?</h2>
+      <p>Ask a question, look something up, or start a conversation.</p>
+    </div>
+
+    <article
+      *ngFor="let chatMessage of messages"
+      class="message"
+      [class.user-message]="chatMessage.role === 'user'"
+      [class.assistant-message]="chatMessage.role === 'assistant'"
+    >
+      <span class="message-label">{{ chatMessage.role === 'user' ? 'You' : 'Assistant' }}</span>
+      <p>{{ chatMessage.content }}</p>
+    </article>
+
+    <div class="thinking" *ngIf="isLoading" aria-label="Thinking">
+      <span></span><span></span><span></span>
+    </div>
+
+    <p class="error-message" *ngIf="errorMessage" role="alert">{{ errorMessage }}</p>
+  </section>
+
+  <form class="composer" (ngSubmit)="sendMessage()">
+    <textarea
+      name="message"
+      [(ngModel)]="message"
+      (keydown)="handleKeydown($event)"
+      placeholder="Message ChatDPT..."
+      rows="2"
+      [disabled]="isLoading"
+      aria-label="Message ChatDPT"
+    ></textarea>
+    <div class="composer-footer">
+      <span>Enter to send · Shift + Enter for a new line</span>
+      <button type="submit" [disabled]="!message.trim() || isLoading" aria-label="Send message">
+        <span aria-hidden="true">↑</span>
+      </button>
+    </div>
+  </form>
+</main>
