@@ -5,9 +5,9 @@ import {
   inject,
   setClassMetadata,
   ɵɵdefineInjectable
-} from "./chunk-KZE7FWXU.js";
+} from "./chunk-QIDZYVL3.js";
 
-// ../node_modules/@angular/common/fesm2022/_xhr-chunk.mjs
+// node_modules/@angular/common/fesm2022/_xhr-chunk.mjs
 function parseCookieValue(cookieStr, name) {
   name = encodeURIComponent(name);
   for (const cookie of cookieStr.split(";")) {
@@ -22,7 +22,7 @@ function parseCookieValue(cookieStr, name) {
 var XhrFactory = class {
 };
 
-// ../node_modules/@angular/common/fesm2022/_platform_location-chunk.mjs
+// node_modules/@angular/common/fesm2022/_platform_location-chunk.mjs
 var _DOM = null;
 function getDOM() {
   return _DOM;
@@ -148,4 +148,4 @@ export {
   LOCATION_INITIALIZED,
   BrowserPlatformLocation
 };
-//# sourceMappingURL=chunk-7MPM527V.js.map
+//# sourceMappingURL=chunk-RWCQEZR2.js.map

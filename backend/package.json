@@ -6,6 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "start:dev": "node --watch server.js",
     "start:cli": "node app.js"
   },
   "dependencies": {

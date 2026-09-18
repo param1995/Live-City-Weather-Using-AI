@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ChatService } from './chat.service';
+import { finalize } from 'rxjs';
+import {ChatService} from '../chatService/chat.service';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -17,7 +18,11 @@ interface ChatMessage {
 })
 export class ChatComponent {
   private readonly chatService = inject(ChatService);
-  readonly threadId = `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+  private readonly changeDetector = inject(ChangeDetectorRef);
+
+  readonly threadId = `${Date.now().toString(36)}${Math.random()
+    .toString(36)
+    .slice(2, 8)}`;
 
   messages: ChatMessage[] = [];
   message = '';
@@ -26,25 +31,48 @@ export class ChatComponent {
 
   sendMessage(): void {
     const content = this.message.trim();
+
     if (!content || this.isLoading) {
       return;
     }
 
-    this.messages.push({ role: 'user', content });
+    console.log('1. Sending message:', content);
+
+    this.messages.push({
+      role: 'user',
+      content,
+    });
+
     this.message = '';
     this.errorMessage = '';
     this.isLoading = true;
 
-    this.chatService.sendMessage(content, this.threadId).subscribe({
-      next: ({ message }) => {
-        this.messages.push({ role: 'assistant', content: message });
-        this.isLoading = false;
-      },
-      error: () => {
-        this.errorMessage = 'Unable to generate a response. Please try again.';
-        this.isLoading = false;
-      },
-    });
+    console.log('2. Calling ChatService...');
+
+    this.chatService
+      .sendMessage(content, this.threadId)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetector.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          this.messages.push({
+            role: 'assistant',
+            content: response.message,
+          });
+          this.changeDetector.detectChanges();
+        },
+        error: (error) => {
+          console.error('Chat request failed:', error);
+          this.errorMessage =
+            error?.error?.message ||
+            'Unable to generate a response. Please try again.';
+          this.changeDetector.detectChanges();
+        },
+      });
   }
 
   handleKeydown(event: KeyboardEvent): void {

@@ -9,7 +9,10 @@ body {
 
 body {
   margin: 0;
-  background: #191918;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(141, 176, 139, 0.1), transparent 28rem),
+    radial-gradient(circle at 88% 82%, rgba(216, 141, 101, 0.1), transparent 30rem),
+    #191918;
   color: #ddd6cc;
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   font-size: 15px;

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/styles.css"],
-  "sourcesContent": ["* {\r\n  box-sizing: border-box;\r\n}\r\n\r\nhtml,\r\nbody {\r\n  min-height: 100%;\r\n}\r\n\r\nbody {\r\n  margin: 0;\r\n  background: #191918;\r\n  color: #ddd6cc;\r\n  font-family: \"Trebuchet MS\", \"Segoe UI\", sans-serif;\r\n  font-size: 15px;\r\n}\r\n\r\nbutton,\r\ntextarea {\r\n  font-family: inherit;\r\n}\r\n"],
-  "mappings": ";AAAA;AACE,cAAY;AACd;AAEA;AACA;AACE,cAAY;AACd;AAEA;AACE,UAAQ;AACR,cAAY;AACZ,SAAO;AACP;AAAA,IAAa,cAAc;AAAA,IAAE,UAAU;AAAA,IAAE;AACzC,aAAW;AACb;AAEA;AACA;AACE,eAAa;AACf;",
-  "names": []
-}

@@ -8,6 +8,9 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const cache = new NodeCache({ stdTTL: 60 * 60 * 24 });
 
 export async function generate(userMessage, threadId) {
+    if (/^(hi|hello|hey)( there)?[!. ]*$/i.test(userMessage.trim())) {
+        return 'Hello! How can I assist you today?';
+    }
     const baseMessages = [
         {
             role: 'system',
@@ -32,6 +35,11 @@ export async function generate(userMessage, threadId) {
                     Q: Tell me the latest IT news.
                     A: (use the search tool to get the latest news)
 
+                    Q: What is a today's pune temperature?
+                    A: (use the search tool to get the latest news)
+
+                    Q: What is a today Mumbai's  temperature?
+                    A: (use the search tool to get the latest news)
                     current date and time: ${new Date().toUTCString()}`,
         },
     ];
